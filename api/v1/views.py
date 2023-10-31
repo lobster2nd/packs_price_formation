@@ -9,7 +9,7 @@ from .serializers import PurchasePlanningAnalysisDataSerializer
 
 class ElementAPIListPagination(PageNumberPagination):
     """Пагинация результирующего списка"""
-    page_size = 100
+    page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 10000
 
@@ -22,7 +22,11 @@ class ElementListAPIView(ListAPIView):
 
 
 class ElementCreateAPIView(CreateAPIView):
-    """Создание нового элемента"""
+    """
+    Создание нового элемента. Обязательные параметры:
+    date_from, date_to, our_warehouse
+    """
+
     queryset = PurchasePlanningAnalysisData.objects.all()
     serializer_class = PurchasePlanningAnalysisDataSerializer
 
