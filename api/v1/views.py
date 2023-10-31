@@ -22,7 +22,11 @@ class ElementListAPIView(ListAPIView):
 
 
 class ElementCreateAPIView(CreateAPIView):
-    """Создание нового элемента"""
+    """
+    Создание нового элемента. Обязательные параметры:
+    date_from, date_to, our_warehouse
+    """
+
     queryset = PurchasePlanningAnalysisData.objects.all()
     serializer_class = PurchasePlanningAnalysisDataSerializer
 
