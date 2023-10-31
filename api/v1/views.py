@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import (ListAPIView, RetrieveUpdateDestroyAPIView,
                                      CreateAPIView)
 from rest_framework.pagination import PageNumberPagination
@@ -20,6 +21,11 @@ class ElementListAPIView(ListAPIView):
     serializer_class = PurchasePlanningAnalysisDataSerializer
     pagination_class = ElementAPIListPagination
 
+    @swagger_auto_schema(
+        operation_summary='Просмотр списка всех элементов'
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class ElementCreateAPIView(CreateAPIView):
     """
@@ -30,9 +36,29 @@ class ElementCreateAPIView(CreateAPIView):
     queryset = PurchasePlanningAnalysisData.objects.all()
     serializer_class = PurchasePlanningAnalysisDataSerializer
 
+    @swagger_auto_schema(operation_summary='Создание нового элемента')
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 class ElementRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """Просмотр, редактирование и удаление элемента по индексу"""
     queryset = PurchasePlanningAnalysisData.objects.all()
     serializer_class = PurchasePlanningAnalysisDataSerializer
     lookup_field = 'pk'
+
+    @swagger_auto_schema(operation_summary='Просмотр элемента по ID')
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary='Редактирование элемента по ID')
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary='Редактирование элемента по ID')
+    def patch(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary='Удаление элемента по ID')
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
